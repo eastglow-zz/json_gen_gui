@@ -163,6 +163,10 @@ def add_entry(frame, key, description, entry_type, entry_values, user_entry_widt
     entry_values[key].grid(row=0, column=2, padx=5, pady=5, sticky='w')
 
 def on_key_press(event):
+    # Check if the focus is on an entry widget
+    if root.focus_get() and isinstance(root.focus_get(), (tk.Entry, scrolledtext.ScrolledText)):
+        return
+
     # Get the current position of the canvas
     x, y = canvas.canvasx(0), canvas.canvasy(0)
 
@@ -190,9 +194,19 @@ def on_key_press(event):
     # Adjust the scroll region of the canvas based on the new position
     canvas.scan_dragto(new_x, new_y, gain=1)
 
+def on_click(event):
+    # Check if the click event happened outside of entry widgets
+    if not any(isinstance(event.widget, widget_type) for widget_type in (tk.Entry, scrolledtext.ScrolledText)):
+        # Set focus to a dummy widget (e.g., the root window) to disable entry widget cursor
+        root.focus_set()
+
+
 # Create the root window
 root = tk.Tk()
 root.title("JSON Generator")
+
+# Bind the click event to the root window
+root.bind("<Button-1>", on_click)
 
 # Bind arrow key events to the on_key_press function
 root.bind("<Up>", on_key_press)
