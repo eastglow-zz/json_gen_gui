@@ -20,5 +20,5 @@ GUI to generate and load a JSON file with predefined keys
 - Also wanted to edit the values of existing input files through this simple GUI. 
 
 ## Cautions
-- Now there's a serious bug with key scrolling: if you try to move key cursor in the input entry, the screen is scrolled too :(
+- Now there's a serious bug with key scrolling: if you try to move key cursor in the input entry to hop around numbers, letters, and etc., the screen is scrolled too :(
 - I'll fix it soon. 
