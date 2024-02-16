@@ -15,5 +15,7 @@ GUI to generate and load JSON file with predefined keys
 - Vector of integer, float, and text (no mixed type allowed)
 - Matrix of integer, float, and text (no mixed type allowed)
 
-
+## My own purpose
+- I intended to create a simple GUI to generate input files of my simulation codes, containing many parameters.
+- Also wanted to edit the values of existing input files through this simple GUI. 
 
