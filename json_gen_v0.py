@@ -37,12 +37,23 @@ def generate_json(file_name, entry_values):
             value = get_entry_value(key, info["type"], entry_values)
 
             if value is not None:
-                data[key] = value
-            print(f"Generating '{key}': {value}")
+                data[key] = {"value": value, "type": info["type"], "description": info["description"]}
 
     with open(file_name, 'w') as f:
         json.dump(data, f, indent=2)
     print(f"JSON file '{file_name}' generated successfully.")
+
+def generate_json_with_user_input(entry_values, generate_button):
+    file_name = filedialog.asksaveasfilename(defaultextension="", filetypes=[("JSON files", "*.json")])
+    if file_name:
+        required_keys = [key for key, info in key_descriptions.items() if info.get("required", False)]
+        missing_keys = [key for key in required_keys if key not in entry_values or entry_values[key].get() == ""]
+        
+        if not missing_keys:
+            generate_json(file_name, entry_values)
+        else:
+            message = f"Missing values for required keys: {', '.join(missing_keys)}"
+            tk.messagebox.showwarning("Missing Values", message)
 
 def load_json(entry_values):
     file_path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json")])
@@ -254,8 +265,18 @@ for category, keys in key_categories.items():
     # Update the cumulative height for the next category
     cumulative_height += len(frame.grid_info())
 
+def generate_button_callback():
+    required_keys = [key for key, info in key_descriptions.items() if info.get("required", False)]
+    missing_keys = [key for key in required_keys if key not in entry_values or not entry_values[key].get()]
+
+    if missing_keys:
+        message = f"Missing values for required keys: {', '.join(missing_keys)}"
+        tk.messagebox.showwarning("Missing Values", message)
+    else:
+        generate_json_with_user_input(entry_values)
+
 # Buttons
-generate_button = tk.Button(root, text="Generate JSON", command=lambda: generate_json_with_user_input(entry_values))
+generate_button = tk.Button(root, text="Generate JSON", command=generate_button_callback)
 generate_button.pack(pady=10)
 
 load_button = tk.Button(root, text="Load JSON", command=lambda: load_json(entry_values))
