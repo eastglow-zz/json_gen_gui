@@ -5,23 +5,23 @@ from tkinter import ttk
 import json
 
 key_descriptions = {
-    "key1": {"description": "Integer value for key1", "type": "integer"},
-    "key2": {"description": "Real-numbered value for key2", "type": "float"},
-    "key3": {"description": "Description for key3, which can be quite long and may wrap to the next line if necessary", "type": "text"},
-    "key4": {"description": "Float type vector values for key4 (comma-separated)", "type": "float_vector"},
-    "key5": {"description": "Float type matrix values for key5 (linebreak-separated rows, comma-separated columns)", "type": "float_matrix"},
-    "key6": {"description": "Integer type vector values for key6 (comma-separated)", "type": "int_vector"},
-    "key7": {"description": "Integer type matrix values for key7 (linebreak-separated rows, comma-separated columns)", "type": "int_matrix"},
-    "key8": {"description": "Text type vector values for key8 (comma-separated)", "type": "text_vector"},
-    "key9": {"description": "Text type matrix values for key9 (linebreak-separated rows, comma-separated columns)", "type": "text_matrix"}
+    "key1": {"type": "integer", "category": "cat1", "description": "Integer value for key1", "required": False},
+    "key2": {"type": "float", "category": "cat1", "description": "Real-numbered value for key2", "required": False},
+    "key3": {"type": "text", "category": "cat1", "description": "Description for key3, which can be quite long and may wrap to the next line if necessary", "required": False},
+    "key4": {"type": "float_vector", "category": "cat2", "description": "Float type vector values for key4 (comma-separated)", "required": False},
+    "key5": {"type": "float_matrix", "category": "cat2", "description": "Float type matrix values for key5 (linebreak-separated rows, comma-separated columns)", "required": False},
+    "key6": {"type": "int_vector", "category": "cat2", "description": "Integer type vector values for key6 (comma-separated)", "required": False},
+    "key7": {"type": "int_matrix", "category": "cat3", "description": "Integer type matrix values for key7 (linebreak-separated rows, comma-separated columns)", "required": False},
+    "key8": {"type": "text_vector", "category": "cat3", "description": "Text type vector values for key8 (comma-separated)", "required": False},
+    "key9": {"type": "text_matrix", "category": "cat3", "description": "Text type matrix values for key9 (linebreak-separated rows, comma-separated columns)", "required": False},
+    "key10": {"type": "integer", "category": "cat4", "description": "Required single-valued integer for key10", "required": True}
 }
 
-# Grouping keys into categories
-key_categories = {
-    "cat1": ["key1", "key2", "key3"],
-    "cat2": ["key4", "key5", "key6"],
-    "cat3": ["key7", "key8", "key9"]
-}
+# Grouping keys into categories dynamically
+key_categories = {}
+for key, info in key_descriptions.items():
+    category = info.get("category", "Uncategorized")
+    key_categories.setdefault(category, []).append(key)
 
 # Set the width for user entry, scrolled text, key label, and description label
 user_entry_width = 20
