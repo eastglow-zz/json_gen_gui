@@ -63,12 +63,27 @@ def load_json(entry_values):
             with open(file_path, 'r') as f:
                 loaded_data = json.load(f)
 
-            for key, info in key_descriptions.items():
-                if key in entry_values and key in loaded_data:
-                    formatted_value = format_loaded_value(loaded_data[key], info["type"])
+            for key in entry_values:
+                if key in loaded_data:
+                    value = loaded_data[key].get("value", "")
+                    formatted_value = format_loaded_value(value, key_descriptions[key]["type"])
                     set_entry_value(key, formatted_value, entry_values)
+
         except json.JSONDecodeError:
             print(f"Error: Invalid JSON file '{file_path}'.")
+
+def format_loaded_value(value, entry_type):
+    if entry_type in ["float_matrix", "int_matrix", "text_matrix"]:
+        # Convert the loaded matrix into formatted string
+        formatted_value = "\n".join([', '.join(map(str, row)) for row in value])
+        return formatted_value
+    elif entry_type in ["float_vector", "int_vector", "text_vector"]:
+        return ", ".join(map(str, value))
+    else:
+        return str(value)
+
+
+
 
 def clean_input(value):
     return value.strip()
@@ -176,14 +191,15 @@ def add_entry(frame, key, description, entry_type, entry_values, user_entry_widt
 def on_key_press(event):
     # Check if the focus is on an entry widget
     if root.focus_get() and isinstance(root.focus_get(), (tk.Entry, scrolledtext.ScrolledText)):
-        return
+        if event.keysym == "Up" or event.keysym == "Down" or event.keysym == "Left" or event.keysym == "Right": 
+            return
 
     # Get the current position of the canvas
     x, y = canvas.canvasx(0), canvas.canvasy(0)
 
     # Define the amount to scroll in both x and y directions
     scroll_delta = 20
-    page_scroll_delta = 200  # Adjust as needed
+    page_scroll_delta = 1  # Adjust as needed
 
     # Check the pressed key and update the canvas position accordingly
     if event.keysym == "Up":

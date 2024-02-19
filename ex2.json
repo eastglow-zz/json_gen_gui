@@ -1,0 +1,94 @@
+{
+  "key1": {
+    "value": 1,
+    "type": "integer",
+    "description": "Integer value for key1"
+  },
+  "key2": {
+    "value": 2.0,
+    "type": "float",
+    "description": "Real-numbered value for key2"
+  },
+  "key3": {
+    "value": "three",
+    "type": "text",
+    "description": "Description for key3, which can be quite long and may wrap to the next line if necessary"
+  },
+  "key4": {
+    "value": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "type": "float_vector",
+    "description": "Float type vector values for key4 (comma-separated)"
+  },
+  "key5": {
+    "value": [
+      [
+        1.0,
+        2.0
+      ],
+      [
+        3.0,
+        4.0
+      ]
+    ],
+    "type": "float_matrix",
+    "description": "Float type matrix values for key5 (linebreak-separated rows, comma-separated columns)"
+  },
+  "key6": {
+    "value": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "type": "int_vector",
+    "description": "Integer type vector values for key6 (comma-separated)"
+  },
+  "key7": {
+    "value": [
+      [
+        3,
+        4
+      ],
+      [
+        6,
+        7
+      ]
+    ],
+    "type": "int_matrix",
+    "description": "Integer type matrix values for key7 (linebreak-separated rows, comma-separated columns)"
+  },
+  "key8": {
+    "value": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "type": "text_vector",
+    "description": "Text type vector values for key8 (comma-separated)"
+  },
+  "key9": {
+    "value": [
+      [
+        "a",
+        "b"
+      ],
+      [
+        "c",
+        "d"
+      ]
+    ],
+    "type": "text_matrix",
+    "description": "Text type matrix values for key9 (linebreak-separated rows, comma-separated columns)"
+  },
+  "key10": {
+    "value": 10,
+    "type": "integer",
+    "description": "Required single-valued integer for key10"
+  }
+}
